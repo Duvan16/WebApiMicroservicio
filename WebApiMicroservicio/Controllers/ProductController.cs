@@ -23,6 +23,17 @@ namespace WebApiMicroservicio.Controllers
             return Products.Single(x => x.Id == id);
         }
 
+        public ActionResult Create(Product model)
+        {
+            model.Id = Products.Count() + 1;
+            Products.Add(model);
+
+            return CreatedAtAction(
+                "Get",
+                new { id = model.Id },
+                model);
+        }
+
         private static List<Product> Products = new List<Product>
          {
              new Product
